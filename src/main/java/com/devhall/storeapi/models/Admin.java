@@ -13,47 +13,45 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = User.TABLE_NAME)
-public class User {
+@Table(name = "admins")
+public class Admin {
 
-    public interface CreateUser {
+    public Admin() {
     }
 
-    public interface UpdateUser {
+    public Admin(Long id, String name, String username, String password) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
     }
 
-    public static final String TABLE_NAME = "users";
+    public interface CreateAdmin {
+    }
+
+    public interface UpdateAdmin {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    @NotNull(groups = { CreateUser.class, UpdateUser.class })
-    @NotEmpty(groups = { CreateUser.class, UpdateUser.class })
+    @Column(name = "name", unique = true, nullable = false)
+    @NotNull(groups = { CreateAdmin.class, UpdateAdmin.class })
+    @NotEmpty(groups = { CreateAdmin.class, UpdateAdmin.class })
     private String name;
 
-    @Column(name = "username", nullable = false, unique = true)
-    @NotNull(groups = CreateUser.class)
-    @NotEmpty(groups = CreateUser.class)
-    private String email;
+    @Column(name = "username", unique = true, nullable = false)
+    @NotNull(groups = CreateAdmin.class)
+    @NotEmpty(groups = CreateAdmin.class)
+    private String username;
 
     @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "password", nullable = false, length = 25)
-    @NotNull(groups = { CreateUser.class, UpdateUser.class })
-    @NotEmpty(groups = { CreateUser.class, UpdateUser.class })
+    @Column(name = "password", unique = true, nullable = false)
+    @NotNull(groups = { CreateAdmin.class, UpdateAdmin.class })
+    @NotEmpty(groups = { CreateAdmin.class, UpdateAdmin.class })
     private String password;
-
-    public User() {
-    }
-
-    public User(Long id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
 
     public Long getId() {
         return this.id;
@@ -71,12 +69,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
