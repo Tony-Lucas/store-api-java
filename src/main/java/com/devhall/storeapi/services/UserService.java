@@ -32,7 +32,6 @@ public class UserService {
 
     @Transactional
     public User updateUser(User obj){
-        
         User newObj = findById(obj.getId());
         newObj.setName(obj.getName());
         return obj;

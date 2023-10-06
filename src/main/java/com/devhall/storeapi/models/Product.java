@@ -2,6 +2,8 @@ package com.devhall.storeapi.models;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +13,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 
 @Entity
 @Table(name = "products")
@@ -49,11 +50,11 @@ public class Product {
     private String name;
 
     @Column(name = "description")
-    @Null(groups = { CreateProduct.class, UpdateProduct.class })
+    @Nullable
     @NotEmpty(groups = { CreateProduct.class, UpdateProduct.class })
     private String description;
 
-    @Column(name = "resalePrice")
+    @Column(name = "resale_price")
     @NotNull(groups = { CreateProduct.class, UpdateProduct.class })
     @NotEmpty(groups = { CreateProduct.class, UpdateProduct.class })
     private String resale_price;
@@ -64,13 +65,11 @@ public class Product {
     private String price;
 
     @Column(name = "imgName", nullable = true)
-    @Null(groups = { CreateProduct.class, UpdateProduct.class })
-    @NotEmpty(groups = { CreateProduct.class, UpdateProduct.class })
+    @Nullable
     private String img_name;
 
     @Column(name = "imgUrl", nullable = true)
-    @Null(groups = { CreateProduct.class, UpdateProduct.class })
-    @NotEmpty(groups = { CreateProduct.class, UpdateProduct.class })
+    @Nullable
     private String img_url;
 
     @OneToMany(mappedBy = "product")
@@ -114,22 +113,6 @@ public class Product {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public String getImgName() {
-        return this.img_name;
-    }
-
-    public void setImgName(String img_name) {
-        this.img_name = img_name;
-    }
-
-    public String getImgUrl() {
-        return this.img_url;
-    }
-
-    public void setImgUrl(String img_url) {
-        this.img_url = img_url;
     }
 
     public String getImg_name() {

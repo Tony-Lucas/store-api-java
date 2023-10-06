@@ -1,5 +1,8 @@
 package com.devhall.storeapi.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -8,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +48,15 @@ public class User {
     @NotNull(groups = { CreateUser.class, UpdateUser.class })
     @NotEmpty(groups = { CreateUser.class, UpdateUser.class })
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Favorite> favorites = new ArrayList<Favorite>();
+
+    @OneToMany(mappedBy = "user")
+    private List<DeliverAdress> deliver_adresses = new ArrayList<DeliverAdress>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Contact> contacts = new ArrayList<Contact>();
 
     public User() {
     }
