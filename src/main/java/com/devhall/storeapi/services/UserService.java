@@ -3,6 +3,7 @@ package com.devhall.storeapi.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.devhall.storeapi.models.User;
@@ -18,14 +19,16 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new RuntimeException(
-            "Usuario não encontrado" + id
-        ));
+        return user.orElseThrow(() -> new RuntimeException("asdasdasdasd"));
     }
 
     @Transactional
     public User createUser(User obj){
         obj.setId(null);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(5);
+        String hashPassword = bCryptPasswordEncoder.encode(obj.getPassword());
+        System.out.println(hashPassword);
+        obj.setPassword(hashPassword);
         obj = this.userRepository.save(obj);
         return obj;
     }

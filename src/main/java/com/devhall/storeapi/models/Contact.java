@@ -11,24 +11,25 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "contacts")
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Contact {
 
     public interface CreateContact {
     }
 
     public interface UpdateContact {
-    }
-
-    public Contact(Long id, String phone_number, User user) {
-        this.id = id;
-        this.phone_number = phone_number;
-        this.user = user;
-    }
-
-    public Contact() {
     }
 
     @Id
@@ -46,28 +47,5 @@ public class Contact {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPhone_number() {
-        return this.phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 }

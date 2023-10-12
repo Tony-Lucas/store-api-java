@@ -11,24 +11,25 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "favorites")
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Favorite {
 
     public interface CreateFavorite {
     }
 
     public interface UpdateFavorite {
-    }
-
-    public Favorite(Long id, Long productId, User user) {
-        this.id = id;
-        this.productId = productId;
-        this.user = user;
-    }
-
-    public Favorite() {
     }
 
     @Id
@@ -40,34 +41,10 @@ public class Favorite {
     @NotNull
     @NotEmpty
     @NotBlank
-    private Long productId;
+    private Long product_id;
 
     @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getProductId() {
-        return this.productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 }

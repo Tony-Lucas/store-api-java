@@ -13,25 +13,20 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
-
-    public Product() {
-    }
-
-    public Product(Long id, String name, String description, String resale_price, String price, String img_name,
-            String img_url, List<Color> colors) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.resale_price = resale_price;
-        this.price = price;
-        this.img_name = img_name;
-        this.img_url = img_url;
-        this.colors = colors;
-    }
 
     public interface CreateProduct {
     }
@@ -74,69 +69,5 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<Color> colors = new ArrayList<Color>();
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getResale_price() {
-        return this.resale_price;
-    }
-
-    public void setResale_price(String resale_price) {
-        this.resale_price = resale_price;
-    }
-
-    public String getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getImg_name() {
-        return this.img_name;
-    }
-
-    public void setImg_name(String img_name) {
-        this.img_name = img_name;
-    }
-
-    public String getImg_url() {
-        return this.img_url;
-    }
-
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
-    }
-
-    public List<Color> getColors() {
-        return this.colors;
-    }
-
-    public void setColors(List<Color> colors) {
-        this.colors = colors;
-    }
 
 }

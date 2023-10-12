@@ -15,9 +15,19 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = User.TABLE_NAME)
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     public interface CreateUser {
@@ -34,19 +44,19 @@ public class User {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @NotNull(groups = { CreateUser.class, UpdateUser.class })
-    @NotEmpty(groups = { CreateUser.class, UpdateUser.class })
+    @NotNull(groups = { CreateUser.class, UpdateUser.class },message = "not accepts null")
+    @NotEmpty(groups = { CreateUser.class, UpdateUser.class },message = "not accepts empty string")
     private String name;
 
-    @Column(name = "username", nullable = false, unique = true)
-    @NotNull(groups = CreateUser.class)
-    @NotEmpty(groups = CreateUser.class)
+    @Column(name = "email", nullable = false, unique = true)
+    @NotNull(groups = CreateUser.class,message = "not accepts null")
+    @NotEmpty(groups = CreateUser.class,message = "not accepts empty string")
     private String email;
 
     @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "password", nullable = false, length = 25)
-    @NotNull(groups = { CreateUser.class, UpdateUser.class })
-    @NotEmpty(groups = { CreateUser.class, UpdateUser.class })
+    @Column(name = "password", nullable = false,length = 100)
+    @NotNull(groups = { CreateUser.class, UpdateUser.class },message = "not accepts null")
+    @NotEmpty(groups = { CreateUser.class, UpdateUser.class },message = "not accepts empty string")
     private String password;
 
     @OneToMany(mappedBy = "user")
@@ -58,46 +68,5 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Contact> contacts = new ArrayList<Contact>();
 
-    public User() {
-    }
-
-    public User(Long id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }
+
